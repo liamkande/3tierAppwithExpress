@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/kogsio/littletiers.git"
   },
-  "author": "abel@mit.edu",
+  "author": "liamkande@icloud.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kogsio/littletiers/issues"
@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.17.1",
+    "faker": "5.5.3",
     "lowdb": "^1.0.0"
   }
 }
