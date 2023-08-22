@@ -21,8 +21,8 @@ This is a simple web application built with Express.js and lowdb to manage user 
    
 4. Run the application:
     ```sh
-   npm start
-   
+   node http_server.js
+
 5. Open your web browser and go to http://localhost:3000 to access the application.
 
 ## Features
