@@ -22,7 +22,7 @@ app.use(express.static('public'));
 db.defaults({ users: [] }).write();
 
 // Define the port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Return all users
 app.get('/data', function (req, res) {

@@ -1,3 +1,14 @@
 {
-  "users": []
+  "users": [
+    {
+      "name": "Milton Jaskolski Sr.",
+      "dob": "2020-7-6",
+      "email": "Milton31@yahoo.com",
+      "username": "Milton_Jaskolski",
+      "password": "rslxS9TWTFThEyf",
+      "phone": "745.712.5902 x1995",
+      "latitude": "-27.3500",
+      "longitude": "-135.8059"
+    }
+  ]
 }
