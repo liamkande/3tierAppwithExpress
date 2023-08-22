@@ -1,54 +1,53 @@
 const express = require('express');
+const app = express();
 const low = require('lowdb');
 const fs = require('lowdb/adapters/FileSync');
-const bodyParser = require('body-parser');
-const faker = require('faker'); // Import Faker.js
-
 const adapter = new fs('db.json');
 const db = low(adapter);
+const cors = require('cors');
+// const { faker } = require('@faker-js/faker');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Allow cross-origin resource sharing (CORS)
+app.use(cors());
 
-app.use(express.static('public'));
+// Data parser - used to parse post data
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Serve static files from the public directory
+app.use(express.static('public'));
+
+// Initialize the data store
 db.defaults({ users: [] }).write();
 
-app.get('/data', function(req, res) {
+// Define the port
+const port = process.env.PORT || 3000;
+
+// Return all users
+app.get('/data', function (req, res) {
     res.send(db.get('users').value());
 });
 
-app.post('/test', function(req, res) {
-    console.log(req.body.username, req.body.password);
-    res.send(req.body.username + ' ' + req.body.password);
-});
-
-app.post('/add', function(req, res) {
+// Add user
+app.post('/add', function (req, res) {
     const user = {
-        name: req.body.name || faker.name.findName(),
-        dob: req.body.dob || faker.date.past().toISOString(),
-        email: req.body.email || faker.internet.email(),
-        username: req.body.username || faker.internet.userName(),
-        password: req.body.password || faker.internet.password(),
-        phone: req.body.phone || faker.phone.phoneNumber(),
-        streetaddress: req.body.streetaddress || faker.address.streetAddress(),
-        citystatezip: req.body.citystatezip || faker.address.city() + ', ' + faker.address.stateAbbr() + ' ' + faker.address.zipCode(),
-        latitude: req.body.latitude || faker.address.latitude(),
-        longitude: req.body.longitude || faker.address.longitude()
+        'name': req.body.name,
+        'dob': req.body.dob,
+        'email': req.body.email,
+        'username': req.body.username,
+        'password': req.body.password,
+        'phone': req.body.phone,
+        'latitude': req.body.latitude,
+        'longitude': req.body.longitude,
+        // Removed 'avatar': faker.internet.avatar()
     };
-
-    try {
-        db.get('users').push(user).write();
-        console.log(db.get('users').value());
-        res.send(db.get('users').value());
-    } catch (error) {
-        console.error('Error adding user:', error);
-        res.status(500).send('Error adding user');
-    }
+    db.get('users').push(user).write();
+    console.log(db.get('users').value());
+    res.send(db.get('users').value());
 });
 
-app.listen(PORT, function() {
-    console.log(`Running on port ${PORT}`);
+// Start the server
+app.listen(port, function () {
+    console.log(`Server is running on port ${port}`);
 });
