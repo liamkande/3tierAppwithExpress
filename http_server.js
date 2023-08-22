@@ -36,8 +36,7 @@ app.post('/add', function(req, res) {
         streetaddress: req.body.streetaddress || faker.address.streetAddress(),
         citystatezip: req.body.citystatezip || faker.address.city() + ', ' + faker.address.stateAbbr() + ' ' + faker.address.zipCode(),
         latitude: req.body.latitude || faker.address.latitude(),
-        longitude: req.body.longitude || faker.address.longitude(),
-        avatar: req.body.avatar || faker.image.avatar()
+        longitude: req.body.longitude || faker.address.longitude()
     };
 
     try {
