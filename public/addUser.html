@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Add User</h1>
+    <form id="addUserForm">
+        <!-- Add more form fields as needed -->
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+    <div id="userInfo" class="mt-4"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.min.js"></script>
+<script>
+    const form = document.getElementById('addUserForm');
+    const userInfo = document.getElementById('userInfo');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const user = {};
+
+        superagent
+            .post('/add')
+            .send(user)
+            .end(function (err, res) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log(res.body);
+                    displayLastAddedUser(res.body); // Display last added user info
+                }
+            });
+    });
+
+    function displayLastAddedUser(users) {
+        const lastUser = users[users.length - 1];
+        const userHTML = `
+            <h2>Last Added User Information</h2>
+            <p>Name: ${lastUser.name}</p>
+            <p>Date of Birth: ${lastUser.dob}</p>
+            <p>Email: ${lastUser.email}</p>
+            <p>Username: ${lastUser.username}</p>
+            <!-- Add more properties here based on your requirements -->
+        `;
+
+        userInfo.innerHTML = userHTML;
+    }
+</script>
+</body>
+</html>
