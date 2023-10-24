@@ -48,6 +48,8 @@ app.post('/add', function (req, res) {
 });
 
 // Start the server
-app.listen(port, function () {
-    console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, function () {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+module. exports = app;
